@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const adminRoutes = require('./Src/Routes/Admin/index.routes');
 app.use('/api/admin', adminRoutes);
 
-// Users Routes
+// User Routes
 const usersRoute = require('./Src/Routes/User/index.routes');
 app.use('/api/user', usersRoute);
 
