@@ -1,18 +1,28 @@
 const express = require('express');
 const productRoutes = express.Router();
 
+const { adminVerifyToken } = require('../../Helpers/adminVerifyToken');
 const {
     addNewProduct,
-    deleteProduct,
     getAllProducts,
     getProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 } = require('../../Controller/Admin/product.controller');
 
-productRoutes.post('/add-product', addNewProduct);
-productRoutes.get('/get-products', getAllProducts);
-productRoutes.get('/get-product', getProduct);
-productRoutes.put('/update-product', updateProduct);
-productRoutes.delete('/delete-product', deleteProduct);
+// ADD PRODUCT
+productRoutes.post('/add-Product', adminVerifyToken, addNewProduct);
+
+// GET ALL PRODUCT
+productRoutes.get('/get-All-Product', adminVerifyToken, getAllProducts);
+
+// GET SPECIFIC PRODUCT
+productRoutes.get('/get-Product', adminVerifyToken, getProduct);
+
+// UPDATE PRODUCT
+productRoutes.put('/update-Product', adminVerifyToken, updateProduct);
+
+// DELETE PRODUCT
+productRoutes.delete('/delete-Product', adminVerifyToken, deleteProduct);
 
 module.exports = productRoutes;

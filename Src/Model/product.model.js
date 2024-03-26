@@ -9,7 +9,7 @@ const productSchema = mongoose.Schema({
         type: String
     },
     price: {
-        type: Number,
+        type: Number
     },
     category: [{
         type: String
@@ -19,9 +19,9 @@ const productSchema = mongoose.Schema({
         default: false
     }
 },
-    {
-        versionKey:false,
-        timestamps: true
-    });
+{
+    versionKey: false,
+    timestamps: true
+});
 
-module.exports = mongoose.model('products', productSchema);    
+module.exports = mongoose.model('products', productSchema);

@@ -1,15 +1,21 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();   
-const port = process.env.PORT;                                           // Server Create
-
+const app = express();                                                // Server Create
+const port = process.env.PORT;                                           
 app.use(express.json());
-
-const adminsRoutes = require('./Src/Routes/Admin/index.routes');
-app.use('/api/admin',adminsRoutes);
 
 // MONGOOSE
 const mongoose = require('mongoose');
+
+// ROUTES:- 
+
+// Admin Routes
+const adminRoutes = require('./Src/Routes/Admin/index.routes');
+app.use('/api/admin', adminRoutes);
+
+// Users Routes
+const usersRoute = require('./Src/Routes/User/index.routes');
+app.use('/api/user', usersRoute);
 
 // DATABASE COLLECTION
 async function main() {
@@ -23,3 +29,13 @@ main()
 app.listen(port, () => {
     console.log(`Server start at http://localhost:${port}`);
 });
+
+
+// OR //                         
+                                                                      
+// app.listen(7777 , async() => {                                       // Online Database
+//     mongoose.connect(process.env.MONGO_DB_URL)
+//     .then(() => console.log('DB is Connected'))
+//     .catch(err => console.log(err.message));
+//     console.log('Server start at http://localhost:7777');
+// });
