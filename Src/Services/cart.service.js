@@ -65,4 +65,14 @@ module.exports = class CartServices {
             return error.message;
         }
     };
+
+    // UPDATE MANY
+    async updateMany(body) {
+        try {
+            return await Cart.updateMany(body);
+        } catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    };
 }

@@ -55,6 +55,5 @@ module.exports = class FavoriteServieces {
             console.log(error);
             return error.message;
         }
-    };
-
+    }
 }

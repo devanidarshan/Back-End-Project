@@ -27,7 +27,7 @@ exports.addNewOrder = async(req, res) => {
         });
         newOrder.save();
         await cartService.updateMany({ user: req.user._id}, {$set: { isDelete: true}});
-        res.status(201).json({ message: `Order Place Successfuly...`});
+        res.status(201).json({newOrder, message: `Order Place Successfuly...`});
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: `Internal Server Error ${console.error()}`});
@@ -37,7 +37,7 @@ exports.addNewOrder = async(req, res) => {
 // GET ALL ORDER
 exports.getAllOrders = async (req, res) => {
     try {
-        let orders = await orderServiece.getAllOrders({ user: req.user._id,  isDelete: false }).populate('user').populate('items');;
+        let orders = await orderService.getAllOrders({ user: req.user._id,  isDelete: false });
         console.log(orders);
         if (!orders) {
             res.status(404).json({ message: `Orders Not Found...`});
@@ -52,7 +52,7 @@ exports.getAllOrders = async (req, res) => {
 // GET SPECIFIC  ORDER
 exports.getOrder = async (req, res) => {
     try {
-        let order = await orderServiece.getOrderById({_id: req.query.orderId, isDelete: false}).populate('user').populate('items');
+        let order = await orderService.getOrderById({_id: req.query.orderId, isDelete: false});
         console.log(order);
         if (!order) {
             res.status(404).json({ message: `Orders Not Found...`});
@@ -67,12 +67,12 @@ exports.getOrder = async (req, res) => {
 // DELETE ORDER
 exports.deleteOrder = async (req, res) => {
     try {
-        let order = await orderServiece.getOrder({_id: req.query.orderId}).populate('user').populate('items');
+        let order = await orderService.getOrder({_id: req.query.orderId});
         console.log(order);
         if (!order) {
             res.status(404).json({ message: `Orders Not Found..Plase Try Again...`});
         }
-        order = await orderServiece.updateOrder(req.body.orderId, {isDelete: true })
+        order = await orderService.deleteOrder(req.body.orderId, {isDelete: true })
         res.status(200).json({order, message: `Your Order Deleted Successfully...`});
     } catch (error) {
         console.log(error);

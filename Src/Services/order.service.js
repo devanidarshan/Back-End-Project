@@ -14,7 +14,7 @@ module.exports = class OrderServices{
 // GET ALL ORDER
     async getAllOrders (body) {
         try {
-            return await Order.find(body);
+            return await Order.find(body).populate('user').populate('items');
         } catch (error) {
             console.log(error);
             return error.message;            
@@ -41,10 +41,10 @@ module.exports = class OrderServices{
         }
     };
 
-// UPDATE ORDER
-    async updateOrder (id, body){
+// DELETE ORDER
+    async deleteOrder (id, body){
         try {
-            return await Order.findOneAndUpdate(id, { $set: body} , { new : true });
+            return await Order.findOneAndUpdate(id, { $set: body} , { new : true }).populate('user').populate('items');
         } catch (error) {
             console.log(error);
             return error.message;  
