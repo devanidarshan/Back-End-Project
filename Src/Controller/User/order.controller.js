@@ -74,6 +74,7 @@ exports.deleteOrder = async (req, res) => {
         }
         order = await orderService.deleteOrder(req.body.orderId, {isDelete: true })
         res.status(200).json({order, message: `Your Order Deleted Successfully...`});
+        // console.log(order);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: `Internal Server Error ${console.error()}`});
